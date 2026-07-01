@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Askia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+        }
+        .auth-input {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .auth-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .auth-button {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .auth-button:hover {
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <script>
+        // Switch between login and register forms
+        function switchForm(form) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            
+            if (form === 'register') {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            } else {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            }
+        }
+
+        // Handle URL parameter for mode (login/register)
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            
+            if (mode === 'register') {
+                switchForm('register');
+            } else if (mode === 'login') {
+                switchForm('login');
+            }
+        });
+    </script>
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-600 to-pink-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">A</div>
+                    <span class="text-lg font-bold text-gray-900">Askia</span>
+                </a>
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 font-medium">← Back Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-md w-full">
+            <!-- Login Form -->
+            <div id="loginForm">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+                    <p class="text-gray-600">Sign in to your account to continue</p>
+                </div>
+
+                <div id="loginError" class="hidden bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm"></div>
+
+                <form id="loginFormElement" class="space-y-4">
+                    <div>
+                        <label for="loginEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="loginEmail" required class="auth-input w-full" placeholder="you@example.com">
+                    </div>
+
+                    <div>
+                        <label for="loginPassword" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="loginPassword" required class="auth-input w-full" placeholder="••••••••">
+                    </div>
+
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="flex items-center text-sm text-gray-600">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300">
+                            <span class="ml-2">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-700">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-button w-full mt-6">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-6 space-y-4">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-gray-50 text-gray-500">or</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-gray-600 text-center text-sm">
+                            Don't have an account? 
+                            <button type="button" onclick="switchForm('register')" class="text-indigo-600 hover:text-indigo-700 font-semibold">Create one</button>
+                        </p>
+                        <p class="text-gray-600 text-center text-sm">
+                            Have an invitation? 
+                            <a href="invite.html" class="text-indigo-600 hover:text-indigo-700 font-semibold">Join here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" class="hidden">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
+                    <p class="text-gray-600">Start managing your marketplace today</p>
+                </div>
+
+                <div id="registerError" class="hidden bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm"></div>
+
+                <form id="registerFormElement" class="space-y-4">
+                    <div>
+                        <label for="registerName" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="registerName" required class="auth-input w-full" placeholder="John Doe">
+                    </div>
+
+                    <div>
+                        <label for="registerEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="registerEmail" required class="auth-input w-full" placeholder="you@example.com">
+                    </div>
+
+                    <div>
+                        <label for="businessName" class="block text-sm font-medium text-gray-700 mb-2">Business Name</label>
+                        <input type="text" id="businessName" required class="auth-input w-full" placeholder="Your Store Name">
+                    </div>
+
+                    <div>
+                        <label for="registerPassword" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="registerPassword" required minlength="6" class="auth-input w-full" placeholder="••••••••">
+                        <p class="text-xs text-gray-500 mt-1">At least 6 characters</p>
+                    </div>
+
+                    <button type="submit" class="auth-button w-full mt-6">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6">
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-gray-50 text-gray-500">or</span>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-600 text-center text-sm">
+                        Already have an account? 
+                        <button type="button" onclick="switchForm('login')" class="text-indigo-600 hover:text-indigo-700 font-semibold">Sign in</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
